@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class Success extends StatelessWidget {
   var result = "";
-  late Function() reset;
-  // Function() func;
+  Function() reset;
 
   Success({
     required this.result,
@@ -29,7 +28,7 @@ class Success extends StatelessWidget {
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 40,
-              fontFamily: "Big shouders Display",
+              fontFamily: "Big Shoulders Display",
             ),
             textAlign: TextAlign.center,
           ),
@@ -38,9 +37,9 @@ class Success extends StatelessWidget {
           ),
           LoadingButton(
             busy: false,
-            invert: true,
             func: reset,
-            text: "Calcular Novamente",
+            invert: true,
+            text: "CALCULAR NOVAMENTE",
           ),
         ],
       ),

@@ -1,11 +1,5 @@
 import 'package:aog/pages/home.page.dart';
-import 'package:aog/widgets/input.widget.dart';
-import 'package:aog/widgets/loading-button.widget.dart';
-import 'package:aog/widgets/logo.widget.dart';
-import 'package:aog/widgets/submit-form.dart';
-import 'package:aog/widgets/success.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:extended_masked_text/extended_masked_text.dart';
 
 void main() {
   runApp(MyApp());

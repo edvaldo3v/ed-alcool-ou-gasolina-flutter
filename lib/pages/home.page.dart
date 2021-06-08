@@ -11,32 +11,52 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Color _color = Colors.deepPurple;
-  var _gasCtrl = new MoneyMaskedTextController();
-  var _alcCtrl = new MoneyMaskedTextController();
   var _busy = false;
   var _completed = false;
-  var _resultText = "Compensa utilizar Alcool";
+  var _resultText = "Compensa utilizar álcool";
+  var _gasCtrl = new MoneyMaskedTextController();
+  var _alcCtrl = new MoneyMaskedTextController();
 
-  reset() {
-    setState(() {
-      _color = Colors.deepPurple;
-      _alcCtrl = new MoneyMaskedTextController();
-      _gasCtrl = new MoneyMaskedTextController();
-      _completed = false;
-      _busy = false;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: AnimatedContainer(
+        duration: Duration(
+          milliseconds: 1200,
+        ),
+        color: _color,
+        child: ListView(
+          children: <Widget>[
+            Logo(),
+            _completed
+                ? Success(
+                    result: _resultText,
+                    reset: reset,
+                  )
+                : SubmitForm(
+                    alcCtrl: _alcCtrl,
+                    gasCtrl: _gasCtrl,
+                    busy: _busy,
+                    submitFunc: calculate,
+                  ),
+          ],
+        ),
+      ),
+    );
   }
 
-  Future calculate() async {
+  Future calculate() {
     double alc =
-        double.parse(_alcCtrl.text.replaceAll(new RegExp('r[,.]'), '')) / 100;
+        double.parse(_alcCtrl.text.replaceAll(new RegExp(r'[,.]'), '')) / 100;
     double gas =
-        double.parse(_gasCtrl.text.replaceAll(new RegExp('r[,.]'), '')) / 100;
+        double.parse(_gasCtrl.text.replaceAll(new RegExp(r'[,.]'), '')) / 100;
     double res = alc / gas;
 
     setState(() {
-      _busy = true;
+      _color = Colors.deepPurpleAccent;
       _completed = false;
+      _busy = true;
     });
 
     return new Future.delayed(
@@ -55,26 +75,13 @@ class _HomePageState extends State<HomePage> {
             });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: ListView(
-        children: <Widget>[
-          Logo(),
-          _completed
-              ? Success(
-                  reset: reset,
-                  result: _resultText,
-                )
-              : SubmitForm(
-                  gasCtrl: _gasCtrl,
-                  alcCtrl: _alcCtrl,
-                  busy: _busy,
-                  submitFunc: calculate,
-                ),
-        ],
-      ),
-    );
+  reset() {
+    setState(() {
+      _color = Colors.deepPurple;
+      _alcCtrl = new MoneyMaskedTextController();
+      _gasCtrl = new MoneyMaskedTextController();
+      _completed = false;
+      _busy = false;
+    });
   }
 }
